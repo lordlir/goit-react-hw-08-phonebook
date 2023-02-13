@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import { token } from 'http';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +12,7 @@ export const App = () => {
   const dispatch = useDispatch();
   const tokenValue = useSelector(state => state.auth.token);
   const isAuth = useSelector(state => state.auth.isAuth);
+  // eslint-disable-next-line
   const { email, name } = useSelector(state => state.user);
   useEffect(() => {
     if (tokenValue && !isAuth) {
