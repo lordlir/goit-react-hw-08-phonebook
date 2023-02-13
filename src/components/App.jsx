@@ -1,5 +1,3 @@
-// eslint-disable-next-line
-import { token } from 'http';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
@@ -26,11 +24,15 @@ export const App = () => {
           path="/contacts"
           element={tokenValue ? <Contacts /> : <Navigate to="/login" />}
         />
-        <Route path="/login" element={!tokenValue ? <Login /> : <Contacts />} />
+        <Route
+          path="/login"
+          element={!tokenValue ? <Login /> : <Navigate to="/contacts" />}
+        />
         <Route
           path="/registration"
-          element={!tokenValue ? <Registration /> : <Contacts />}
+          element={!tokenValue ? <Registration /> : <Navigate to="/contacts" />}
         />
+        <Route path="*" element={<Navigate to="/contacts" />} />
       </Routes>
     </>
   );
