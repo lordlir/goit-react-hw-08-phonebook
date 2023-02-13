@@ -1,21 +1,23 @@
 import axios from 'axios';
+import { privetApi } from 'http';
 
-export const getContacts = async search => {
-  const { data } = await axios.get(
-    'https://connections-api.herokuapp.com/contacts/',
-    { params: { search } }
+export const getContacts = async () => {
+  const { data } = await privetApi.get(
+    'https://connections-api.herokuapp.com/contacts/'
   );
   return data;
 };
 
 export const addContactServ = async body => {
-  const { data } = await axios.post(
-    'https://connections-api.herokuapp.com/contacts',
+  const { data } = await privetApi.post(
+    'https://connections-api.herokuapp.com/contacts/',
     body
   );
   return data;
 };
 
 export const deleteContactsServ = async id => {
-  return axios.delete('https://connections-api.herokuapp.com/contacts/' + id);
+  return privetApi.delete(
+    'https://connections-api.herokuapp.com/contacts/' + id
+  );
 };

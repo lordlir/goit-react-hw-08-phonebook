@@ -8,7 +8,6 @@ export const Filter = () => {
 
   const handlChange = e => {
     dispatch(setFilter(e.target.value));
-    // console.log(e.terget.value);
   };
   return (
     <label className={s.label} htmlFor="filter">

@@ -1,19 +1,30 @@
-import React from 'react';
-// import Avatar from '@mui/material/Avatar';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { loginUser } from 'redux/auth/oper.auth';
+import { useDispatch } from 'react-redux';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-// import Link from '@mui/material/Link';
+
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Link } from 'react-router-dom';
+
+const initState = { email: '', password: '' };
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const [form, setForm] = useState(initState);
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setForm(prevSt => ({ ...prevSt, [name]: value }));
+  };
+
+  const handleSub = e => {
+    e.preventDefault();
+    dispatch(loginUser(form));
+  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -25,14 +36,13 @@ const Login = () => {
           alignItems: 'center',
         }}
       >
-        {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar> */}
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 1 }}>
+        <Box onSubmit={handleSub} component="form" noValidate sx={{ mt: 1 }}>
           <TextField
+            value={form.email}
+            onChange={handleChange}
             margin="normal"
             required
             fullWidth
@@ -43,6 +53,8 @@ const Login = () => {
             autoFocus
           />
           <TextField
+            value={form.password}
+            onChange={handleChange}
             margin="normal"
             required
             fullWidth

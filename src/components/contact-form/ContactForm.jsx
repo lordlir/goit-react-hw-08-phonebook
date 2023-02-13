@@ -7,12 +7,13 @@ import s from './contact-form.module.css';
 export const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.contacts);
+  const isAuth = useSelector(state => state.auth.isAuth);
 
   const handleSubmit = event => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
-    const phone = form.number.value;
+    const number = form.number.value;
     if (
       contacts.items.find(
         contact => contact.name.toLowerCase() === name.toLowerCase()
@@ -20,7 +21,10 @@ export const ContactForm = () => {
     ) {
       return alert(`${name} is already in contacts`);
     }
-    dispatch(addContacts({ name, phone }));
+
+    if (isAuth) {
+      dispatch(addContacts({ name, number }));
+    }
     form.reset();
   };
   return (
@@ -53,7 +57,3 @@ export const ContactForm = () => {
     </form>
   );
 };
-
-// ContactForm.propType = {
-//   onAddContact: PropTypes.func.isRequired,
-// };

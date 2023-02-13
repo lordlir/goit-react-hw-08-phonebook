@@ -7,9 +7,11 @@ import {
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
-  async (search, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      return await getContacts(search);
+      const data = await getContacts();
+      console.log(data);
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
