@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { privetApi } from 'http';
 
 export const getContacts = async () => {
